@@ -1,0 +1,36 @@
+<project name="PharTest" basedir="." default="clean-build">
+
+    <property name="src_dir"     value="${basedir}/PharTest"/>
+    <property name="build_dir"   value="${basedir}/build"/>
+    <property name="phar_file"   value="${build_dir}/console"/>
+    <target name="clean">
+        <delete dir="${build_dir}"/>
+    </target>
+
+    <target name="prepare">
+        <mkdir dir="${build_dir}"/>
+    </target>
+
+    <target name="phar" depends="prepare,composer">
+        <exec executable="php" failonerror="true">
+            <arg value="${basedir}/bin/create-phar.php" />
+        </exec>        
+        <exec executable="mv" failonerror="true">
+            <arg value="${phar_file}.phar" />
+            <arg value="${phar_file}" />
+        </exec>
+        <exec executable="chmod" failonerror="true">
+            <arg value="0755" />
+            <arg value="${phar_file}" />
+        </exec>
+    </target> 
+
+    <target name="composer">
+        <exec dir="${src_dir}" executable="composer" failonerror="true">
+            <arg value="install" />
+            <arg value="-o" />
+        </exec>
+    </target>
+
+    <target name="clean-build" depends="clean,phar"/>
+</project>

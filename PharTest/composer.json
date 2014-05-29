@@ -1,0 +1,13 @@
+{
+    "name": "jmcclell/phartest",
+    "type": "application",
+    "description": "Sample Console Application",
+    "license": "MIT",   
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/console": "~2.4"     
+    },   
+    "autoload": {
+        "psr-0": { "PharTest\\": "src/" }        
+    }
+}
